@@ -8,11 +8,22 @@
   },
   "plugins": [
     "@typescript-eslint",
+    "prettier",
     "simple-import-sort",
     "react-hooks",
-    "import"
+    "import",
+    "unused-imports"
   ],
   "rules": {
+    "unused-imports/no-unused-imports": [
+      "error"
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "no-trailing-spaces": [
       "error",
       {

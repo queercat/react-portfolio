@@ -1,14 +1,20 @@
-import { Box, styled } from "@mui/material"
-import React from "react"
+import { ThemeProvider } from "@emotion/react"
+import { CssBaseline } from "@mui/material"
+import React, { useMemo } from "react"
 
-const StyledBackground = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.background.default,
-  display: "flex",
-  height: "100%"
-}))
+import { DarkTheme, LightTheme } from "./themes/theme.tsx"
 
 export const App: React.FC = () => {
+  /* Check OS theme preference */
+  const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+
+  const theme = useMemo(() => {
+    return prefersDarkMode ? DarkTheme : LightTheme
+  }, [prefersDarkMode])
+
   return (
-    <StyledBackground />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+    </ThemeProvider>
   )
 }

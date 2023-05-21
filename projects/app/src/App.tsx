@@ -1,7 +1,8 @@
-import { ThemeProvider } from "@emotion/react"
-import { Box, CssBaseline } from "@mui/material"
-import React, { useMemo } from "react"
+import { Box, CssBaseline, Theme, ThemeProvider } from "@mui/material"
+import React, { useState } from "react"
 
+import { BackgroundContainer } from "./pages/BackgroundContainer.tsx"
+import { ForegroundContainer } from "./pages/ForegroundContainer.tsx"
 import { DarkTheme, LightTheme } from "./themes/theme.tsx"
 
 export const App: React.FC = () => {
@@ -10,21 +11,20 @@ export const App: React.FC = () => {
     "(prefers-color-scheme: dark)"
   ).matches
 
-  const theme = useMemo(() => {
-    return prefersDarkMode ? DarkTheme : LightTheme
-  }, [prefersDarkMode])
+  const [theme, setTheme] = useState<Theme>(
+    prefersDarkMode ? DarkTheme : LightTheme
+  )
 
   return (
     <ThemeProvider theme={theme}>
+      {/* Header Garbage */}
       <CssBaseline />
-      <Box
-        sx={{
-          display: "flex",
-          height: "100%",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      ></Box>
+
+      {/* Main 'hero' `*/}
+      <Box sx={{ height: "100%" }}>
+        <BackgroundContainer />
+        <ForegroundContainer theme={theme} setTheme={setTheme} />
+      </Box>
     </ThemeProvider>
   )
 }
